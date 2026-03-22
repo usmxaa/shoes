@@ -38,8 +38,15 @@
             border-radius: 50px;
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-transform: uppercase;
+        }
+
+        .timer {
+            color: #ff4757;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 15px;
         }
 
         .offer-box {
@@ -48,8 +55,8 @@
             padding: 20px;
             margin-bottom: 25px;
             transition: 0.3s;
+            background: #fafafa;
         }
-        .offer-box:hover { border-color: #764ba2; }
         
         .offer-title { font-size: 16px; color: #444; margin-bottom: 5px; }
         .offer-value { font-size: 32px; font-weight: 700; color: #1a1a1a; }
@@ -65,8 +72,14 @@
             font-weight: 600;
             box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);
             transition: 0.3s;
+            animation: pulse 1.5s infinite;
         }
-        .btn:hover { transform: translateY(-3px); background: #5a368a; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
 
         .steps {
             display: flex;
@@ -91,15 +104,15 @@
 
         <div class="content">
             <div class="status-badge">● System Status: Active</div>
+            <div class="timer">Expires in: <span id="time">05:00</span></div>
             
             <div class="offer-box">
                 <p class="offer-title">Your Available Reward:</p>
                 <div class="offer-value">$750.00</div>
-                <p style="font-size: 12px; color: #888;">Valid for: Shoes & Electronics</p>
+                <p style="font-size: 12px; color: #888;">Valid for: Shoes & Accessories</p>
             </div>
 
-            <!-- Replace 'YOUR_LINK' with your actual CPA link -->
-            <a href="https://smrturl.co/a/s0f386d23e3/19049?s1=" class="target-link btn">CLAIM REWARD NOW</a>
+            <a href="https://smrturl.co/a/s0f386d23e3/19049?s1=" class="btn">CLAIM REWARD NOW</a>
 
             <div class="steps">
                 <div class="step"><i>📝</i> Register</div>
@@ -108,11 +121,29 @@
             </div>
 
             <p class="footer">
-                Must be 18+ and a resident of the United States. <br>
-                This offer is part of our student outreach program.
+                Limited to verified USA students only. <br>
+                Rewards are distributed on a first-come, first-served basis.
             </p>
         </div>
     </div>
 
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) { timer = duration; }
+            }, 1000);
+        }
+        window.onload = function () {
+            var fiveMinutes = 60 * 5,
+            display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
 </body>
 </html>
